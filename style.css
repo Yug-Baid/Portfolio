@@ -1,0 +1,18 @@
+.cursor{
+   height: 25px;
+   width: 25px;
+    border-radius: 50%;
+    background-color: #EFD390;
+    position: fixed;
+   mix-blend-mode: difference;
+    z-index: 999;
+     transition: background-image ease 0.5s;
+     background-position: center;
+    background-size: cover;
+    transition: left linear 0.1s top linear 0.1s;
+    
+}
+
+#root{
+    cursor: none;
+}
