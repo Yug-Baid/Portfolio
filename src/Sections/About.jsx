@@ -152,10 +152,10 @@ const About = () => {
                 Who Am I?
               </h4>
               <p className="text-white/70 text-lg md:text-xl font-light leading-relaxed mb-6">
-                Hey, I'm <span className="text-white font-medium">Yug Jain</span>, a creative web developer who loves building clean, responsive, and user-friendly websites.
+                Hey, I'm <span className="text-white font-medium">Yug Jain</span>, a creative Full Stack Web Developer who loves building clean, responsive, and user-friendly websites.
               </p>
               <p className="text-white/70 text-lg md:text-xl font-light leading-relaxed mb-6">
-                I specialize in modern web technologies including <span className="text-gold">React</span>, <span className="text-gold">Node.js</span>, <span className="text-gold">TailwindCSS</span>, and <span className="text-gold">Firebase</span>.
+                I specialize in modern web technologies including <span className="text-gold">React</span>, <span className="text-gold">Node.js</span>, <span className="text-gold">TailwindCSS</span>, and <span className="text-gold">MongoDB</span>.
               </p>
               <p className="text-white/70 text-lg md:text-xl font-light leading-relaxed">
                 I enjoy solving complex problems, learning cutting-edge technologies, and transforming innovative ideas into exceptional digital experiences. Let's create something remarkable together.

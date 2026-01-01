@@ -11,7 +11,7 @@ import Contact from '../Sections/Contact';
 
 const HomePage = () => {
   return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }} className='relative w-screen min-h-screen overflow-x-auto'>
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }} className='relative w-full min-h-screen overflow-x-hidden'>
       <Navbar/>
       <Hero/>
       <ServiceSmmary/>

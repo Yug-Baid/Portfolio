@@ -209,13 +209,14 @@ const Navbar = () => {
             : { clipPath: "circle(0% at 50% 50%)" }
         }
         className="
-          flex flex-col z-50
+          hidden md:flex flex-col z-[100]
           w-14 h-14
           bg-black
           rounded-full
           transition-all
-          fixed items-center justify-center top-5 right-10 duration-300 gap-1
+          fixed items-center justify-center top-5 right-5 cursor-pointer duration-300 gap-1
           md:h-18 md:w-18
+          md:right-10
         " 
       >
         <span

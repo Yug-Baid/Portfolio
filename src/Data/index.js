@@ -279,13 +279,9 @@ export const projects = [
   },
 ];
 export const socials = [
-  { name: "Instagram", href: "https://www.instagram.com/ali.sanatidev/reels/" },
-  {
-    name: "Youtube",
-    href: "https://www.youtube.com/channel/UCZhtUWTtk3bGJiMPN9T4HWA",
-  },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/ali-sanati/" },
-  { name: "GitHub", href: "https://github.com/Ali-Sanati" },
+  { name: "Instagram", href: "https://www.instagram.com/yug__jaiin__/" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/yug-baid-89702b309/" },
+  { name: "GitHub", href: "https://github.com/Yug-Baid" },
 ];
 
 // Helper function to get project by slug

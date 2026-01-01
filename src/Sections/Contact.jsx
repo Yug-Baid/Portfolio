@@ -11,14 +11,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const contactInfo = [
   { icon: 'mdi:email-outline', label: 'Email', value: 'yugbaid4@gmail.com', href: 'mailto:yugbaid4@gmail.com' },
-  { icon: 'mdi:phone-outline', label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
+  { icon: 'mdi:phone-outline', label: 'Phone', value: '+91 79845 83672', href: 'tel:+917984583672' },
   { icon: 'mdi:map-marker-outline', label: 'Location', value: 'India', href: '#' },
 ];
 
 const socialLinks = [
-  { icon: 'mdi:github', label: 'GitHub', href: 'https://github.com' },
-  { icon: 'mdi:linkedin', label: 'LinkedIn', href: 'https://linkedin.com' },
-  { icon: 'mdi:twitter', label: 'Twitter', href: 'https://twitter.com' },
+  { icon: 'mdi:github', label: 'GitHub', href: 'https://github.com/Yug-Baid' },
+  { icon: 'mdi:linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/yug-baid-89702b309/' },
+  { icon: 'mdi:instagram', label: 'Instagram', href: 'https://www.instagram.com/yug__jaiin__/' },
 ];
 
 const Contact = () => {

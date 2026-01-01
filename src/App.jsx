@@ -20,7 +20,7 @@ const App = () => {
   return (
     <Router>
       {!isReady && (
-        <div className='fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light'>
+        <div className='fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light px-4'>
           <p className='mb-4 text-xl tracking-widest animate-pulse'>
             Loading {Math.floor(progress)}%
           </p>
