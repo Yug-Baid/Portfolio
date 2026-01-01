@@ -43,55 +43,71 @@ const About = () => {
   ];
 
   useGSAP(() => {
-    // Section scale animation
-    gsap.to('#About', {
-      scale: 0.95,
-      scrollTrigger: {
-        trigger: '#About',
-        start: 'bottom 90%',
-        end: 'bottom 20%',
-        scrub: true,
-      },
-      ease: 'power1.inOut',
-    });
+    const mm = gsap.matchMedia();
 
-    // Image reveal animation
-    gsap.fromTo(
-      imageRef.current,
-      { 
-        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-        scale: 1.2 
-      },
-      {
-        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-        scale: 1,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: imageRef.current,
-          start: 'top 80%',
-        },
-      }
-    );
+    mm.add({
+      isMobile: "(max-width: 767px)",
+      isDesktop: "(min-width: 768px)",
+    }, (context) => {
+      const { isMobile } = context.conditions;
 
-    // Skills animation
-    if (skillsRef.current) {
-      gsap.fromTo(
-        skillsRef.current.children,
-        { x: -50, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
+      // Section scale animation - Desktop Only
+      if (!isMobile) {
+        gsap.to('#About', {
+          scale: 0.95,
           scrollTrigger: {
-            trigger: skillsRef.current,
-            start: 'top 85%',
+            trigger: '#About',
+            start: 'bottom 90%',
+            end: 'bottom 20%',
+            scrub: true,
+          },
+          ease: 'power1.inOut',
+        });
+      }
+
+      // Image reveal animation
+      // Mobile: Simple fade in | Desktop: Clip path + Scale
+      gsap.fromTo(
+        imageRef.current,
+        { 
+          clipPath: isMobile ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' : 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+          scale: isMobile ? 1 : 1.2,
+          opacity: isMobile ? 0 : 1
+        },
+        {
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+          scale: 1,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: isMobile ? undefined : {
+            trigger: imageRef.current,
+            start: 'top 80%',
           },
         }
       );
-    }
+
+      // Skills animation - Mobile: Static or simple fade | Desktop: Staggered slide
+      if (skillsRef.current) {
+        gsap.fromTo(
+          skillsRef.current.children,
+          { x: isMobile ? 0 : -50, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: isMobile ? 0.05 : 0.15,
+            ease: 'power3.out',
+            scrollTrigger: isMobile ? undefined : {
+              trigger: skillsRef.current,
+              start: 'top 85%',
+            },
+          }
+        );
+      }
+    });
+
+    return () => mm.revert();
   });
 
   return (

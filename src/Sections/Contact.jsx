@@ -37,40 +37,51 @@ const Contact = () => {
   something amazing together`;
 
   useGSAP(() => {
-    if (formRef.current) {
-      gsap.fromTo(
-        formRef.current,
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: 'top 85%',
-          },
-        }
-      );
-    }
+    const mm = gsap.matchMedia();
 
-    if (infoRef.current) {
-      gsap.fromTo(
-        infoRef.current.children,
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: infoRef.current,
-            start: 'top 85%',
-          },
-        }
-      );
-    }
+    mm.add({
+      isMobile: "(max-width: 767px)",
+      isDesktop: "(min-width: 768px)",
+    }, (context) => {
+      const { isMobile } = context.conditions;
+
+      if (formRef.current) {
+        gsap.fromTo(
+          formRef.current,
+          { y: isMobile ? 0 : 60, opacity: isMobile ? 1 : 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: isMobile ? 0 : 0.8,
+            ease: 'power3.out',
+            scrollTrigger: isMobile ? undefined : {
+              trigger: formRef.current,
+              start: 'top 85%',
+            },
+          }
+        );
+      }
+
+      if (infoRef.current) {
+        gsap.fromTo(
+          infoRef.current.children,
+          { y: isMobile ? 0 : 60, opacity: isMobile ? 1 : 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: isMobile ? 0 : 0.8,
+            stagger: isMobile ? 0 : 0.1,
+            ease: 'power3.out',
+            scrollTrigger: isMobile ? undefined : {
+              trigger: infoRef.current,
+              start: 'top 85%',
+            },
+          }
+        );
+      }
+    });
+
+    return () => mm.revert();
   }, []);
 
   const handleSubmit = async (e) => {

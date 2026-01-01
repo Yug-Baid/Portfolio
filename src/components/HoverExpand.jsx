@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive';
 
 const HoverExpand = ({ 
   images, 
@@ -10,26 +11,52 @@ const HoverExpand = ({
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
+  
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isTablet = useMediaQuery({ minWidth: 769, maxWidth: 1024 });
+
+  // Responsive dimensions
+  const getExpandedWidth = () => {
+    if (isMobile) return '300px';
+    if (isTablet) return '500px';
+    return '990px';
+  };
+
+  const getCollapsedWidth = () => {
+    if (isMobile) return '60px'; // Much smaller on mobile
+    if (isTablet) return '100px';
+    return '150px';
+  };
+
+  const currentHeight = isMobile ? thumbnailHeight * 0.6 : thumbnailHeight;
 
   return (
     <div className="w-full px-4 py-12">
       {/* Thumbnails Row - Now the main display */}
-      <div className="flex items-center justify-center gap-3 overflow-x-hidden pb-4 ">
+      <div className="flex items-center justify-center gap-2 md:gap-3 overflow-x-auto md:overflow-hidden pb-4 no-scrollbar">
         {images.slice(0, maxThumbnails).map((image, index) => (
           <motion.div
             key={index}
-            className="relative cursor-pointer overflow-hidden rounded-2xl border-2 border-black/10 shadow-lg"
+            className="relative cursor-pointer overflow-hidden rounded-xl md:rounded-2xl border-2 border-black/10 shadow-lg shrink-0"
             style={{ 
-              height: `${thumbnailHeight}px`,
-              minWidth: hoveredIndex === index ? '600px' : '150px',
-              width: hoveredIndex === index ? '800px' : '150px',
+              height: `${currentHeight}px`,
             }}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(0)}
-            onClick={() => setSelectedImage(image)}
+            onMouseEnter={() => !isMobile && setHoveredIndex(index)}
+            onMouseLeave={() => !isMobile && setHoveredIndex(0)}
+            onClick={() => {
+              if(isMobile) {
+                if(hoveredIndex !== index) {
+                   setHoveredIndex(index);
+                } else {
+                   setSelectedImage(image);
+                }
+              } else {
+                setSelectedImage(image);
+              }
+            }}
             animate={{
-              width: hoveredIndex === index ? '990px' : '150px',
-              minWidth: hoveredIndex === index ? '990px' : '150px',
+              width: hoveredIndex === index ? getExpandedWidth() : getCollapsedWidth(),
+              minWidth: hoveredIndex === index ? getExpandedWidth() : getCollapsedWidth(),
             }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
           >
@@ -85,7 +112,7 @@ const HoverExpand = ({
               {/* Close button */}
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white text-2xl backdrop-blur-sm transition-all "
+                className="absolute top-4 right-4 w-12 h-12 bg-black/100 hover:bg-gold/100 rounded-full flex items-center justify-center text-white text-2xl backdrop-blur-sm transition-all "
               >
                 ×
               </button>

@@ -29,34 +29,52 @@ const ProjectDetail = () => {
     // Scroll to top on mount
     window.scrollTo(0, 0);
 
-    // Hero animation
-    const heroTl = gsap.timeline();
-    heroTl.fromTo(
-      '.hero-content > *',
-      { y: 60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' }
-    );
+    // Responsive animations with matchMedia
+    const mm = gsap.matchMedia();
 
-    // Content reveal animations
-    const sections = [contentRef.current, galleryRef.current, techRef.current, resultsRef.current];
-    sections.forEach((section) => {
-      if (!section) return;
-      gsap.fromTo(
-        section.querySelectorAll('.animate-item'),
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-          },
+    mm.add({
+      isMobile: "(max-width: 767px)",
+      isDesktop: "(min-width: 768px)",
+    }, (context) => {
+      const { isMobile } = context.conditions;
+
+      // Hero animation
+      const heroTl = gsap.timeline();
+      heroTl.fromTo(
+        '.hero-content > *',
+        { y: isMobile ? 0 : 60, opacity: isMobile ? 0 : 0 },
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 0.8, 
+          stagger: isMobile ? 0.05 : 0.1, 
+          ease: 'power3.out' 
         }
       );
+
+      // Content reveal animations
+      const sections = [contentRef.current, galleryRef.current, techRef.current, resultsRef.current];
+      sections.forEach((section) => {
+        if (!section) return;
+        gsap.fromTo(
+          section.querySelectorAll('.animate-item'),
+          { y: isMobile ? 0 : 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: isMobile ? 0.05 : 0.1,
+            ease: 'power2.out',
+            scrollTrigger: isMobile ? undefined : {
+              trigger: section,
+              start: 'top 80%',
+            },
+          }
+        );
+      });
     });
+
+    return () => mm.revert();
 
     // Parallax effect on hero image
     gsap.to('.hero-image', {
@@ -105,7 +123,7 @@ const ProjectDetail = () => {
       </button>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative h-[70vh] md:h-[85vh] overflow-hidden">
+      <section ref={heroRef} className="relative h-[80vh] md:h-[85vh] overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
@@ -117,12 +135,12 @@ const ProjectDetail = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="hero-content absolute inset-0 flex flex-col justify-end pb-16 md:pb-24">
+        <div className="hero-content absolute inset-0 flex flex-col justify-end pb-16 md:pb-24 translate-y-12 md:translate-y-0">
           <div className="container mx-auto px-6 md:px-10">
-            <p className="text-yellow-600 text-sm md:text-base mb-3 tracking-wider uppercase font-light" style={{ textShadow: '0 0 20px rgba(207, 163, 85, 0.8), 0 0 40px rgba(207, 163, 85, 0.4)' }}>
+            <p className="text-yellow-600 font-bold text-sm md:text-base mb-3 tracking-wider uppercase md:font-normal" style={{ textShadow: '0 0 20px rgba(207, 163, 85, 0.8), 0 0 40px rgba(207, 163, 85, 0.4)' }}>
               {project.category}
             </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-amiamie text-black mb-6 max-w-4xl">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-amiamie text-black mb-6 max-w-4xl font-bold">
               {project.name}
               <span className="text-gold">.</span>
             </h1>
@@ -138,19 +156,19 @@ const ProjectDetail = () => {
             </div>
             <div className="flex flex-wrap gap-6 md:gap-10 text-sm md:text-base text-black/60 font-light mb-8">
               <div>
-                <span className="block text-xs uppercase tracking-wider text-gold mb-1">Year</span>
+                <span className="block text-xs uppercase tracking-wider font-bold  text-gold mb-1">Year</span>
                 {project.year}
               </div>
               <div>
-                <span className="block text-xs uppercase tracking-wider text-gold mb-1">Client</span>
+                <span className="block text-xs uppercase tracking-wider font-bold text-gold mb-1">Client</span>
                 {project.client}
               </div>
               <div>
-                <span className="block text-xs uppercase tracking-wider text-gold mb-1">Duration</span>
+                <span className="block text-xs uppercase tracking-wider font-bold text-gold mb-1">Duration</span>
                 {project.duration}
               </div>
               <div>
-                <span className="block text-xs uppercase tracking-wider text-gold mb-1">Role</span>
+                <span className="block text-xs uppercase tracking-wider text-gold font-bold mb-1">Role</span>
                 {project.role}
               </div>
             </div>
@@ -189,7 +207,7 @@ const ProjectDetail = () => {
         <div className="container mx-auto px-6 md:px-10">
           {/* Overview */}
           <div className="max-w-4xl mb-20 animate-item">
-            <h2 className="text-3xl md:text-4xl font-amiamie text-black mb-6">
+            <h2 className="text-3xl md:text-5xl font-bold font-amiamie text-black mb-6">
               Overview<span className="text-gold">.</span>
             </h2>
             <p className="text-lg md:text-xl text-black/70 leading-relaxed font-light">
@@ -247,7 +265,7 @@ const ProjectDetail = () => {
       {/* Gallery Section */}
       <section ref={galleryRef} className="py-20 bg-black/5">
         <div className="container mx-auto px-6 md:px-10">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-amiamie text-black mb-12 animate-item">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold font-amiamie text-black mb-12 animate-item">
             Gallery<span className="text-gold">.</span>
           </h2>
 
@@ -266,7 +284,7 @@ const ProjectDetail = () => {
       {/* Results Section */}
       <section ref={resultsRef} className="py-20 md:py-32">
         <div className="container mx-auto px-6 md:px-10">
-          <h2 className="text-3xl md:text-4xl font-amiamie text-black mb-12 animate-item">
+          <h2 className="text-4xl md:text-5xl font-amiamie text-black font-bold mb-12 animate-item">
             Results<span className="text-gold">.</span>
           </h2>
 
@@ -276,7 +294,7 @@ const ProjectDetail = () => {
                 key={index}
                 className="text-center p-6 bg-black/5 rounded-2xl border border-black/10 hover:border-gold/30 transition-all duration-300"
               >
-                <div className="text-4xl md:text-5xl font-amiamie text-gold mb-2">
+                <div className="text-3xl text-center md:text-4xl font-amiamie text-gold mb-2">
                   {result.value}
                 </div>
                 <div className="text-sm text-black/60 uppercase tracking-wider mb-1 font-light">

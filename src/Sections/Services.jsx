@@ -10,24 +10,38 @@ const Services = () => {
     const serviceRef = useRef([])
     const isDesktop = useMediaQuery({minWidth:"56rem"})
     useGSAP(()=>{
-        serviceRef.current.forEach((el)=>{
-            if(!el) return;
+        const mm = gsap.matchMedia();
 
-            gsap.from(el,{
-                y: 60,
-                opacity: 0,
-                scrollTrigger:{
-                    trigger: el,
-                    start: 'top 85%',
-                    end: 'top 60%',
-                    toggleActions: 'play none none reverse',
-                },
-                duration: 0.8,
-                ease: "power2.out",
-                force3D: true,
-                willChange: "transform, opacity"
-            })
-        })
+        mm.add({
+          isMobile: "(max-width: 767px)",
+          isDesktop: "(min-width: 768px)",
+        }, (context) => {
+          const { isMobile } = context.conditions;
+
+          serviceRef.current.forEach((el)=>{
+              if(!el) return;
+
+              gsap.from(el,{
+                  y: isMobile ? 0 : 60, // No movement on mobile
+                  opacity: isMobile ? 1 : 0, // Already visible or simple fade
+                  
+                  // Only use scrollTrigger on Desktop
+                  scrollTrigger: isMobile ? undefined : {
+                      trigger: el,
+                      start: 'top 85%',
+                      end: 'top 60%',
+                      toggleActions: 'play none none reverse',
+                  },
+                  
+                  duration: isMobile ? 0 : 0.8, // Instant on mobile
+                  ease: "power2.out",
+                  force3D: true,
+                  willChange: "transform, opacity"
+              })
+          })
+        });
+
+        return () => mm.revert();
     },[])
     const text =  `I build high-performance full-stack apps
     with smooth UX to drive growth

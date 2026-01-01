@@ -12,25 +12,54 @@ const AnimatedHeader = ({subtitle,title,text,textColor,isScroll}) => {
     
     
       useGSAP(() => {
-        const tl = gsap.timeline({
-           scrollTrigger : isScroll ? {trigger:contextRef.current} : undefined 
-        });
-        tl.from(contextRef.current, {
-          y: "50vh",
-          duration: 1,
-          ease: "circ.out",
-        });
-        tl.from(
-          headerRef.current,
-          {
-            opacity: 1,
-            y: "200",
+        const mm = gsap.matchMedia();
+
+        const config = isScroll ? {
+            trigger: contextRef.current,
+            start: "top 80%"
+        } : undefined;
+
+        mm.add({
+          // Mobile settings
+          isMobile: "(max-width: 767px)",
+          // Desktop settings 
+          isDesktop: "(min-width: 768px)",
+        }, (context) => {
+          const { isMobile } = context.conditions;
+          
+          // Config: Only use ScrollTrigger on Desktop
+          const config = (isScroll && !isMobile) ? {
+              trigger: contextRef.current,
+              start: "top 80%"
+          } : undefined;
+          
+          const tl = gsap.timeline({
+            scrollTrigger: config
+          });
+
+          // Mobile: Simple fade in, no heavy scroll trigger
+          // Desktop: Original Scroll Trigger animation
+          tl.from(contextRef.current, {
+            y: isMobile ? 0 : "50vh", // No movement on mobile start
+            opacity: isMobile ? 0 : 1, // Fade in on mobile
             duration: 1,
             ease: "circ.out",
-          },
-          "<+0.2"
-        );
-      }, []);
+          });
+          
+          tl.from(
+            headerRef.current,
+            {
+              opacity: 1,
+              y: isMobile ? 0 : "200",
+              duration: 1,
+              ease: "circ.out",
+            },
+            "<+0.2"
+          );
+        });
+        
+        return () => mm.revert();
+      }, [isScroll]);
   return (
            <div ref={contextRef} className="mb-70">
                 <div style={{ clipPath: "polygon(0 0, 100% 0%, 100% 100%, 0% 100%)" }}>

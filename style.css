@@ -10,7 +10,13 @@
      background-position: center;
     background-size: cover;
     transition: left linear 0.1s top linear 0.1s;
-    
+
+}
+
+@media screen and (max-width: 640px) {
+    .cursor{
+        display: none;
+    }
 }
 
 #root{

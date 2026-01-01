@@ -42,48 +42,64 @@ const Education = () => {
   ];
 
   useGSAP(() => {
-    // Animate the items as they scroll into view
-    itemsRef.current.forEach((el, index) => {
-        if (!el) return;
-        
-        const isLeft = index % 2 === 0;
+    const mm = gsap.matchMedia();
 
-        gsap.fromTo(el, 
+    mm.add({
+      isMobile: "(max-width: 767px)",
+      isDesktop: "(min-width: 768px)",
+    }, (context) => {
+      const { isMobile } = context.conditions;
+
+      // Animate the items as they scroll into view
+      itemsRef.current.forEach((el, index) => {
+          if (!el) return;
+          
+          const isLeft = index % 2 === 0;
+          
+          // Mobile: Static | Desktop: Slide
+          const initialX = isMobile ? 0 : (isLeft ? -100 : 100);
+          const initialY = isMobile ? 0 : 20;
+
+          gsap.fromTo(el, 
+              { 
+                  opacity: isMobile ? 1 : 0, 
+                  x: initialX, 
+                  y: initialY 
+              },
+              {
+                  opacity: 1,
+                  x: 0,
+                  y: 0,
+                  duration: isMobile ? 0 : 1, // Instant on mobile
+                  ease: "power3.out",
+                  scrollTrigger: isMobile ? undefined : {
+                      trigger: el,
+                      start: "top 80%",
+                      end: "top 20%",
+                      toggleActions: "play none none reverse"
+                  }
+              }
+          );
+      });
+
+      // Animate the central line - Desktop only
+      if (!isMobile) {
+        gsap.fromTo(".timeline-line",
+            { scaleY: 0, transformOrigin: "top" },
             { 
-                opacity: 0, 
-                x: isLeft ? -100 : 100, // Slide from sides
-                y: 20 
-            },
-            {
-                opacity: 1,
-                x: 0,
-                y: 0,
-                duration: 1,
-                ease: "power3.out",
+                scaleY: 1, 
+                duration: 1.5, 
+                ease: "power2.out",
                 scrollTrigger: {
-                    trigger: el,
-                    start: "top 80%", // Start animation when top of card hits 80% of viewport
-                    end: "top 20%",
-                    toggleActions: "play none none reverse"
+                    trigger: containerRef.current,
+                    start: "top 60%"
                 }
             }
         );
+      }
     });
-
-    // Animate the central line (scale down)
-    gsap.fromTo(".timeline-line",
-        { scaleY: 0, transformOrigin: "top" },
-        { 
-            scaleY: 1, 
-            duration: 1.5, 
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 60%"
-            }
-        }
-    );
-
+    
+    return () => mm.revert();
   }, { scope: containerRef });
 
   return (
