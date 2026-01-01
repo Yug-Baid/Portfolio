@@ -14,14 +14,18 @@ const Services = () => {
             if(!el) return;
 
             gsap.from(el,{
-                y:100,
+                y: 60,
+                opacity: 0,
                 scrollTrigger:{
-                    trigger:el,
-                    start:'top 80%',
-
+                    trigger: el,
+                    start: 'top 85%',
+                    end: 'top 60%',
+                    toggleActions: 'play none none reverse',
                 },
-                duration:1,
-                ease:"circ.out "
+                duration: 0.8,
+                ease: "power2.out",
+                force3D: true,
+                willChange: "transform, opacity"
             })
         })
     },[])
@@ -47,9 +51,16 @@ const Services = () => {
                     <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-white/80">
                     {service.items.map((item,itemidx)=>(
                         <div key={`item-${idx}-${itemidx}`}>
-                            <h3 className="flex"> 
-                                <span className="mr-12 text-lg text-white/30">0{itemidx+1}</span>
-                                {item.title}
+                            <h3 className="flex flex-col"> 
+                                <span className="flex items-center gap-4">
+                                    <span className="text-lg text-white/30">0{itemidx+1}</span>
+                                    <span>{item.title}</span>
+                                </span>
+                                {item.description && (
+                                    <span className="ml-12 text-lg text-white/50 font-light mt-1">
+                                        {item.description}
+                                    </span>
+                                )}
                             </h3>
                             {itemidx < service.items.length -1 && (
                             <div className="w-full h-px my-2 bg-white/30 "/>

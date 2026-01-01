@@ -5,7 +5,7 @@ import { projects } from '../Data'
 import { Icon } from '@iconify-icon/react/dist/iconify.js'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { overlay } from 'three/tsl'
+import { Link } from 'react-router-dom'
 
 
 const Work = () => {
@@ -104,17 +104,19 @@ const Work = () => {
         })
         
     }
+    
   return (
         <section id='Work' className='flex flex-col min-h-screen'>
            <AnimatedHeader subtitle={"Logic meets Aesthetics"}
-        title={"Works"}
+        title={"Projects"}
         text={text}
         textColor="text-black"
         isScroll={true}
     />
     <div className='relative flex flex-col font-light' onMouseMove={handleMouseMove}>
         {projects.map((project,idx)=>(
-            <div key={project.id} id='project' className='relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0' onMouseEnter={()=>handleMouseEnter(idx)} onMouseLeave={()=>handleMouseLeave(idx)}>
+            <Link key={project.id} to={`/project/${project.slug}`} className="block">
+            <div id='project' className='relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0' onMouseEnter={()=>handleMouseEnter(idx)} onMouseLeave={()=>handleMouseLeave(idx)}>
                 <div ref={(el)=>{overlayRef.current[idx] = el}} className='absolute inset-0 hidden md:block duration:200 bg-black -z-10 clip-path '/>
                 <div className='flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white'><h2 className='lg:text-[32px] text-[26px] leading-none'>{project.name}</h2>
                 <Icon icon="solar:arrow-right-up-bold" className="md:size-6 size-5" />
@@ -130,6 +132,7 @@ const Work = () => {
                     <img src={project.image} alt={`${project.name}-image`} className='absolute bg-center px-14 rounded-xl' />
                 </div>
             </div>
+            </Link>
         ))}
         <div ref={previewRef} className='fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black pointer-events-none w-[960px] md:block hidden opacity-0'>
         {currIdx !== null && (

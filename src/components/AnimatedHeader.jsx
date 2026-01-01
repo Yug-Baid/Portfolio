@@ -38,25 +38,31 @@ const AnimatedHeader = ({subtitle,title,text,textColor,isScroll}) => {
                     ref={headerRef}
                     className="flex flex-col justify-center gap-12 sm:gap-16 pt-16"
                   >
-                    <p className={`text-sm font-light tracking-[0.3rem] uppercase px-10 ${textColor}`}>
-                    {subtitle}
-                    </p>
+                  
                     <div className="px-10">
                       <h1 className={`flex flex-col flex-wrap gap-12 ${textColor} banner-text-responsive sm:gap-16 md:block uppercase`}>
                         {title}
                       </h1>
+                     
                     </div>
                   </div>
+                 
                 </div>
-        
+                    
                 <div className={`relative px-10 ${textColor}`}>
-                  <div className="absolute inset-x-0 border-t-2">
+                  
+                  <div className="absolute  inset-x-0 border-t-2">
+                     <p className={`text-sm mt-5   ml-10 font-light tracking-[0.3rem] uppercase px-10 ${textColor}`}>
+                    {subtitle}
+                    </p>
                     <div className="py-12 sm:py-16 text-end px-10">
                       <AnimatedText
                         text={text}
                         className="font-light uppercase value-text-responsive"
                       />
+                      
                     </div>  
+                    
                   </div>
                 </div>
               </div>

@@ -2,6 +2,9 @@ import { useRef } from "react"
 import Marquee from "./Marquee"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const ContactSummary = () => {
     const items = ["Innovation","Precision","Trust","Collaboration","Excellence"]
@@ -22,7 +25,7 @@ const ContactSummary = () => {
     })
 
   return (
-     <section ref={contactRef} id='Contact' className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16">
+     <section ref={contactRef}  className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16">
         <Marquee items = {items}/>
         <div className="overflow-hidden font-light text-center contact-text-responsive">
             <p>" Let's build a <br />
@@ -35,7 +38,7 @@ const ContactSummary = () => {
         reverse={true}
         className="text-black bg-transparent border-y-2"
         iconClassName="stroke-gold stroke-2 text-primary"
-        icon="material-symbols-light:square"
+        icon="ph:arrow-right"
         />
      </section>
   )

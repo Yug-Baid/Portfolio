@@ -2,6 +2,7 @@
 import { Planet } from "../components/Planet";
 import { Canvas } from "@react-three/fiber";
 import { Environment, Float, Lightformer } from "@react-three/drei";
+import FlipLink from "../components/FlipLink";
 import { useMediaQuery } from "react-responsive";
 import AnimatedHeader from "../components/AnimatedHeader";
 
@@ -13,7 +14,13 @@ results driven web/apps`;
 
   return (
     <section className="flex flex-col justify-center min-h-screen" id="Home">
-      <AnimatedHeader subtitle="404 No Bugs Found" title="Yug Jain" text={text} textColor="text-black" isScroll={false}/>
+      <AnimatedHeader 
+        subtitle="404 No Bugs Found" 
+        title={<FlipLink href="#">Yug Jain</FlipLink>} 
+        text={text} 
+        textColor="text-black" 
+        isScroll={false}
+      />
       <figure
         className="absolute inset-0 -z-50"
         style={{ width: "100vw", height: "100vh" }}

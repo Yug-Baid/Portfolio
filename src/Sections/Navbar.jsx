@@ -118,7 +118,7 @@ const Navbar = () => {
             lg:text-7xl
           "
         >
-          {["Home", "Services", "About", "Work", "Contact"].map(
+          {["Home", "Services", "About", "Education", "Work", "Contact"].map(
             (section, idx) => (
               <div key={idx} ref={(el) => (menuRef.current[idx] = el)}>
                 <Link
@@ -141,7 +141,7 @@ const Navbar = () => {
           ref={contactRef}
           className="
             flex flex-col flex-wrap
-            justify-between gap-8
+            justify-between gap-4 mt-4
           "
         >
           <div
@@ -188,6 +188,7 @@ const Navbar = () => {
                   className="
                     leading-loose tracking-widest text-sm
                     transition-colors
+
                     duration-300 hover:text-white
                   "
                 >
@@ -203,7 +204,7 @@ const Navbar = () => {
       <div
         onClick={toggleNav}
         style={
-          showBurger
+          showBurger || isOpen
             ? { clipPath: "circle(50% at 50% 50%)" }
             : { clipPath: "circle(0% at 50% 50%)" }
         }
