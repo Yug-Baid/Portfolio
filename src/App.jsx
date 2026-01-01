@@ -7,6 +7,8 @@ import ReactLenis from 'lenis/react';
 import HomePage from './pages/HomePage';
 import ProjectDetail from './pages/ProjectDetail';
 
+import CustomCursor from './components/CustomCursor';
+
 const App = () => {
   const {progress} = useProgress();
   const [isReady,setIsReady] = useState(false);
@@ -19,6 +21,7 @@ const App = () => {
 
   return (
     <Router>
+      <CustomCursor />
       {!isReady && (
         <div className='fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light px-4'>
           <p className='mb-4 text-xl tracking-widest animate-pulse'>
