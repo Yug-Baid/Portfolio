@@ -103,10 +103,10 @@ const Education = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} id="Education" className="w-full bg-[var(--color-primary)] py-20 overflow-hidden">
+    <section ref={containerRef} id="Education" className="w-full bg-[var(--color-primary)] py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
       
       {/* Header */}
-      <div className="mb-20">
+      <div className="mb-12 sm:mb-16 md:mb-20">
              <AnimatedHeader 
                 subtitle={"Academic Timeline"}
                 title={"Education"}
@@ -117,7 +117,7 @@ const Education = () => {
       </div>
 
       {/* Vertical Timeline Container */}
-      <div className="relative max-w-7xl mx-auto px-4 flex flex-col gap-0 md:gap-0">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex flex-col gap-0 md:gap-0">
           
           {/* Central Line (Visible only on Desktop) */}
           <div className="timeline-line hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-black/10 -translate-x-1/2 z-0"></div>
@@ -141,7 +141,7 @@ const TimelineItem = ({ data, align, index, itemRef }) => {
     const isLeft = align === "left";
 
     return (
-        <div ref={itemRef} className={`relative w-full flex md:items-center mb-16 md:mb-0 ${isLeft ? "md:justify-start" : "md:justify-end"}`}>
+        <div ref={itemRef} className={`relative w-full flex md:items-center mb-12 sm:mb-14 md:mb-16 last:mb-0 ${isLeft ? "md:justify-start" : "md:justify-end"}`}>
             
             {/* Desktop Center Dot */}
             <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-[var(--color-gold)] bg-[var(--color-primary)] z-10 items-center justify-center">
@@ -149,44 +149,44 @@ const TimelineItem = ({ data, align, index, itemRef }) => {
             </div>
 
             {/* Content Card container */}
-            <div className={`w-full md:w-1/2 ${isLeft ? "md:pr-16" : "md:pl-16"} relative`}>
+            <div className={`w-full md:w-1/2 ${isLeft ? "md:pr-12 lg:pr-16" : "md:pl-12 lg:pl-16"} relative`}>
                 
                 {/* Mobile Line and Dot (Left aligned) */}
-                <div className="md:hidden absolute left-[19px] top-6 bottom-[-64px] w-[1px] bg-black/10 z-0 last:hidden"></div>
+                <div className="md:hidden absolute left-[19px] top-6 bottom-[-48px] last:bottom-0 w-[1px] bg-black/10 z-0"></div>
                 <div className="md:hidden absolute left-0 top-6 w-10 h-10 flex items-center justify-center z-10">
                     <div className="w-3 h-3 rounded-full border border-[var(--color-gold)] bg-[var(--color-primary)]"></div>
                 </div>
 
-                {/* The Card - Reverted Color */}
+                {/* The Card */}
                 <div 
-                    className={`ml-12 md:ml-0 glass-card bg-[#FAFDEE]/80 backdrop-blur-md p-8 rounded-2xl border border-black/5 hover:border-[var(--color-gold)]/30 transition-colors shadow-sm group hover:shadow-lg`}
+                    className={`ml-12 md:ml-0 glass-card bg-[#FAFDEE]/80 backdrop-blur-md p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-black/5 hover:border-[var(--color-gold)]/30 transition-colors shadow-sm group hover:shadow-lg`}
                 >
                     <div className="flex flex-col gap-2">
                         {/* Header Area */}
-                        <div className="flex justify-between items-start gap-4">
-                            <div>
-                                <h3 className="text-2xl font-amiamie text-black group-hover:text-[var(--color-gold)] transition-colors duration-300">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
+                            <div className="flex-1">
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-amiamie text-black group-hover:text-[var(--color-gold)] transition-colors duration-300">
                                     {data.degree}
                                 </h3>
-                                <p className="text-sm font-bold opacity-60 mt-1">{data.institution}</p>
+                                <p className="text-xs sm:text-sm font-bold opacity-60 mt-1">{data.institution}</p>
                             </div>
-                            <span className="shrink-0 text-[var(--color-gold)] font-mono text-xs border border-[var(--color-gold)]/20 px-2 py-1 rounded">
+                            <span className="shrink-0 text-[var(--color-gold)] font-mono text-xs border border-[var(--color-gold)]/20 px-2 py-1 rounded w-fit">
                                 {data.year}
                             </span>
                         </div>
 
                         {/* Divider */}
-                        <div className="w-full h-[1px] bg-black/5 my-3"></div>
+                        <div className="w-full h-[1px] bg-black/5 my-2 sm:my-3"></div>
 
                         {/* Description */}
-                        <p className="text-black/70 font-light leading-relaxed mb-4">
+                        <p className="text-black/70 font-light leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
                             {data.description}
                         </p>
                         
                         {/* Skills */}
                         <div className="flex flex-wrap gap-2">
                             {data.skills.map((skill, i) => (
-                                <span key={i} className="px-3 py-1 bg-white rounded-full text-xs text-black/60 border border-black/5">
+                                <span key={i} className="px-2.5 sm:px-3 py-1 bg-white rounded-full text-xs text-black/60 border border-black/5">
                                     {skill}
                                 </span>
                             ))}

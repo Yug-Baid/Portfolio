@@ -32,9 +32,7 @@ const Contact = () => {
     message: ''
   });
 
-  const text = `Have a project in mind or just want to chat?
-  Drop me a message and let's create
-  something amazing together`;
+  const text = ``;
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
@@ -161,9 +159,9 @@ const Contact = () => {
   };
 
   return (
-    <section  className="py-10 md:py-10 bg-black text-white" id="Contact">
+    <section  className="py-12 sm:py-16 md:py-20 lg:py-24 bg-black text-white" id="Contact">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="container mx-auto px-6 md:px-10">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
         {/* Section Header */}
         <AnimatedHeader 
           subtitle="Get In Touch" 
@@ -173,10 +171,10 @@ const Contact = () => {
           isScroll={true}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mt-20"  >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-20 mt-12 sm:mt-16 md:mt-20"  >
           {/* Contact Form */}
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm text-white/60 mb-2 font-light tracking-wide">
                   Your Name
@@ -188,7 +186,7 @@ const Contact = () => {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors font-light"
+                  className="w-full px-4 py-4 sm:py-3.5 md:py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors font-light text-base"
                   placeholder="Enter your name"
                 />
               </div>
@@ -203,7 +201,7 @@ const Contact = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors font-light"
+                  className="w-full px-4 py-4 sm:py-3.5 md:py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors font-light text-base"
                   placeholder="Enter your email"
                 
                 />
@@ -220,7 +218,7 @@ const Contact = () => {
                 required
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors font-light"
+                className="w-full px-4 py-4 sm:py-3.5 md:py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors font-light text-base"
                 placeholder="Project Inquiry"
               />
             </div>
@@ -232,17 +230,17 @@ const Contact = () => {
                 id="message"
                 name="message"
                 required
-                rows={5}
+                rows={6}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors resize-none font-light"
+                className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-gold transition-colors resize-none font-light text-base sm:rows-5 md:rows-6"
                 placeholder="Tell me about your project..."
               />
             </div>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-gold text-black rounded-full font-medium hover:opacity-90 transition-all disabled:opacity-50 uppercase tracking-wider"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-gold text-black rounded-full font-medium hover:opacity-90 transition-all disabled:opacity-50 uppercase tracking-wider min-h-[52px]"
             >
               {isSubmitting ? (
                 'Sending...'
@@ -256,22 +254,22 @@ const Contact = () => {
           </form>
 
           {/* Contact Info */}
-          <div ref={infoRef} className="space-y-10" >
+          <div ref={infoRef} className="space-y-8 sm:space-y-10" >
             <div>
-              <h3 className="text-2xl font-amiamie mb-6 text-gold">Contact Information</h3>
-              <div className="space-y-4">
+              <h3 className="text-xl sm:text-2xl font-amiamie mb-4 sm:mb-6 text-gold">Contact Information</h3>
+              <div className="space-y-3 sm:space-y-4">
                 {contactInfo.map((info) => (
                   <a
                     key={info.label}
                     href={info.href}
-                    className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors group border border-white/5"
+                    className="flex items-center gap-4 p-4 sm:p-5 min-h-[60px] rounded-xl bg-white/5 hover:bg-white/10 transition-colors group border border-white/5"
                   >
-                    <div className="w-12 h-12 rounded-lg bg-gold/20 flex items-center justify-center">
-                      <Icon icon={info.icon} className="w-5 h-5 text-gold" />
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-gold/20 flex items-center justify-center shrink-0">
+                      <Icon icon={info.icon} className="w-5 h-5 sm:w-6 sm:h-6 text-gold" />
                     </div>
                     <div>
                       <p className="text-sm text-white/60 font-light">{info.label}</p>
-                      <p className="text-white group-hover:text-gold transition-colors font-light">
+                      <p className="text-white group-hover:text-gold transition-colors font-light text-sm sm:text-base break-all">
                         {info.value}
                       </p>
                     </div>
@@ -281,27 +279,27 @@ const Contact = () => {
             </div>
 
             <div>
-              <h3 className="text-2xl font-amiamie mb-6 text-gold">Follow Me</h3>
-              <div className="flex gap-4">
+              <h3 className="text-xl sm:text-2xl font-amiamie mb-4 sm:mb-6 text-gold">Follow Me</h3>
+              <div className="flex gap-3 sm:gap-4">
                 {socialLinks.map((social) => (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-black transition-colors border border-white/10"
+                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-black transition-colors border border-white/10"
                     aria-label={social.label}
                   >
-                    <Icon icon={social.icon} className="w-5 h-5" />
+                    <Icon icon={social.icon} className="w-6 h-6 sm:w-7 sm:h-7" />
                   </a>
                 ))}
               </div>
             </div>
 
             {/* Availability Badge */}
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gold/10 border border-gold/30">
+            <div className="inline-flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-4 rounded-full bg-gold/10 border border-gold/30">
               <div className="w-3 h-3 rounded-full bg-gold animate-pulse" />
-              <span className="text-sm text-white font-light">Currently available for new projects</span>
+              <span className="text-xs sm:text-sm text-white font-light">Currently available for new projects</span>
             </div>
           </div>
         </div>

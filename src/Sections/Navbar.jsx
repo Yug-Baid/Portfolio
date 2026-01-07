@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-scroll";
+import { Icon } from "@iconify-icon/react";
 
 const Navbar = () => {
   const navRef = useRef(null);
@@ -102,20 +103,44 @@ const Navbar = () => {
         className="
           z-50 flex flex-col
           w-full min-h-full
-          py-15 px-10
+          py-12 px-6
+          sm:py-16 sm:px-8
+          md:py-20 md:px-10
           text-white/80
           bg-black
           fixed justify-between uppercase
           md:w-1/2 md:left-1/2
         "
       >
+        {/* Close button for mobile - Top right */}
+        <button
+          onClick={toggleNav}
+          className="
+            md:hidden
+            absolute top-6 right-6
+            w-12 h-12
+            flex items-center justify-center
+            rounded-full
+            bg-white/10 hover:bg-white/20
+            transition-colors
+            z-50
+          "
+          aria-label="Close menu"
+        >
+          <Icon icon="mdi:close" className="w-6 h-6 text-white" />
+        </button>
+
+        {/* Menu Items */}
         <div
           className="
             flex flex-col
             text-5xl
-            gap-y-2
-            md:text-6xl
-            lg:text-7xl
+        
+            sm:text-5xl
+            md:text-5xl 
+            lg:text-5xl
+            xl:text-6xl
+            mt-10 md:mt-[-20px]
           "
         >
           {["Home", "Services", "About", "Education", "Work", "Contact"].map(
@@ -126,9 +151,13 @@ const Navbar = () => {
                   offset={0}
                   smooth
                   duration={2000}
+                  onClick={toggleNav}
                   className="
-                    transition-all cursor-pointer
-                    duration-300 hover:text-white
+
+                    transition-all ease-in-out cursor-pointer
+                    duration-300 hover:bg-white hover:text-black 
+                    block py-2 px-2
+                    min-h-[48px] flex items-center
                   "
                 >
                   {section}
@@ -137,11 +166,14 @@ const Navbar = () => {
             ),
           )}
         </div>
+
+        {/* Contact Info */}
         <div
           ref={contactRef}
           className="
             flex flex-col flex-wrap
-            justify-between gap-4 mt-4
+            justify-between gap-6 mt-8
+            text-sm sm:text-base
           "
         >
           <div
@@ -152,6 +184,7 @@ const Navbar = () => {
             <p
               className="
                 tracking-wider text-white/50
+                text-xs uppercase mb-1
               "
             >
               E-mail
@@ -159,8 +192,9 @@ const Navbar = () => {
 
             <p
               className="
-                text-white/50
+                text-white/80
                 lowercase
+                break-all
               "
             >
               yugbaid4@gmail.com
@@ -168,27 +202,31 @@ const Navbar = () => {
           </div>
           <div
             className="
-              tracking-wider text-white/50
+              text-white/50
             "
           >
-            Social Media
+            <p className="tracking-wider text-xs uppercase mb-2">
+              Social Media
+            </p>
             <div
               className="
-                flex flex-col 
-                gap-x-2
-                
+                flex flex-row 
+                gap-2
+                sm:gap-2
                 md:flex-col
-                lg:flex-row
+                lg:flex-row lg:gap-4
               "
             >
               {socials.map((social, idx) => (
                 <a
                   key={idx}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="
                     leading-loose tracking-widest text-sm
                     transition-colors
-
+                    min-h-[35px] flex items-center
                     duration-300 hover:text-white
                   "
                 >
@@ -201,6 +239,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
+      {/* Hamburger Menu Button - Fixed position */}
       <div
         onClick={toggleNav}
         style={
@@ -209,15 +249,22 @@ const Navbar = () => {
             : { clipPath: "circle(0% at 50% 50%)" }
         }
         className="
-          hidden md:flex flex-col z-[100]
+          flex flex-col z-[100]
           w-14 h-14
           bg-black
           rounded-full
           transition-all
-          fixed items-center justify-center top-5 right-5 cursor-pointer duration-300 gap-1
+          fixed items-center justify-center 
+          top-5 right-5 
+          hover:bg-gold/100
+          cursor-pointer duration-300 gap-1
           md:h-18 md:w-18
-          md:right-10
+          md:top-8 md:right-8
+          lg:top-10 lg:right-10
         " 
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        role="button"
+        tabIndex={0}
       >
         <span
           ref={topLineRef}

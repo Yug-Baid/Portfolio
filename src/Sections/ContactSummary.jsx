@@ -12,22 +12,36 @@ const ContactSummary = () => {
      const contactRef = useRef(null)
 
     useGSAP(()=>{
-        gsap.to(contactRef.current,{
-            scrollTrigger:{
-                trigger:contactRef.current,
-                start:"center center",
-                end:"+=800 center",
-                pin:true,
-                pinSpacing:true,
-                markers:false
-            }
-        })
+        const mm = gsap.matchMedia();
+        
+        mm.add({
+          isMobile: "(max-width: 767px)",
+          isDesktop: "(min-width: 768px)",
+        }, (context) => {
+          const { isMobile } = context.conditions;
+          
+          // Only pin on desktop for better mobile scroll experience
+          if (!isMobile) {
+            gsap.to(contactRef.current,{
+                scrollTrigger:{
+                    trigger:contactRef.current,
+                    start:"center center",
+                    end:"+=800 center",
+                    pin:true,
+                    pinSpacing:true,
+                    markers:false
+                }
+            });
+          }
+        });
+        
+        return () => mm.revert();
     })
 
   return (
-     <section ref={contactRef}  className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16">
+     <section ref={contactRef}  className="flex flex-col items-center justify-between min-h-screen gap-8 sm:gap-10 md:gap-12 mt-12 sm:mt-14 md:mt-16">
         <Marquee items = {items}/>
-        <div className="overflow-hidden font-light text-center contact-text-responsive">
+        <div className="overflow-hidden font-light text-center contact-text-responsive px-4 sm:px-6">
             <p>" Let's build a <br />
             <span className="text-normal">memorable</span> & <span className="italic ">inspiring</span><br />
             web application <span className="text-gold">together</span>"

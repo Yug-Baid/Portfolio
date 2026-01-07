@@ -7,13 +7,31 @@ import { useMediaQuery } from "react-responsive";
 import AnimatedHeader from "../components/AnimatedHeader";
 
 const Hero = () => {
-  const isMobile = useMediaQuery({ maxWidth: 853 });
-    const text = `I help growing brands and startups gain an
-unfair advantage through premuim 
+  // Unified breakpoint system: mobile < 640px, tablet 640-1024px, desktop > 1024px
+  const isMobile = useMediaQuery({ maxWidth: 639 });
+  const isTablet = useMediaQuery({ minWidth: 640, maxWidth: 1023 });
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
+  const text = `I help growing brands and startups gain an
+unfair advantage through premium 
 results driven web/apps`;
+
+  // Responsive planet scale
+  const planetScale = isMobile ? 0.6 : isTablet ? 0.65 : 1;
+  
+  // Responsive canvas quality (lower DPR on mobile for performance)
+  const dpr = isMobile ? [1, 1.2] : isTablet ? [1, 1.5] : [1, 2];
+
+  // Responsive canvas height (prevent overflow on mobile landscape)
+  const getCanvasHeight = () => {
+    if (isMobile) return 'h-[70vh] sm:h-[75vh]';
+    if (isTablet) return 'h-[80vh]';
+    return 'h-full';
+  };
 
   return (
     <section className="relative flex flex-col justify-center min-h-screen overflow-hidden" id="Home">
+      {/* Text Content - Overlay on top */}
       <div className="relative z-10 pointer-events-none">
         <div className="pointer-events-auto">
           <AnimatedHeader 
@@ -25,19 +43,27 @@ results driven web/apps`;
           />
         </div>
       </div>
+
+      {/* 3D Planet Canvas - Background */}
       <figure
-        className={`absolute inset-x-0 top-[-2px] ${isMobile ? 'h-[85vh] top-[-50px]' : 'bottom-0 h-full'}`}
+        className={`absolute inset-x-0 ${getCanvasHeight()} ${isMobile ? 'top-[10vh]' : 'top-0 bottom-0'}`}
         style={{ width: "100%" }}
       >
         <Canvas
-          shadows
-          camera={{ position: [0, 0, -10], fov: 17.5, near: 1, far: 20 }}
+          shadows={!isMobile} // Disable shadows on mobile for performance
+          camera={{ position: [0, 0, -10], fov: isMobile ? 20 : 17.5, near: 1, far: 20 }}
+          dpr={dpr}
+          performance={{ min: 0.5 }}
+          gl={{ 
+            antialias: !isMobile, // Disable antialiasing on mobile
+            powerPreference: isMobile ? "low-power" : "high-performance" 
+          }}
         >
-          <ambientLight intensity={0.5} />
-          <Float speed={0.5}>
-            <Planet scale={isMobile ? 0.5 : 1} />
+          <ambientLight intensity={isMobile ? 0.6 : 0.5} />
+          <Float speed={isMobile ? 0.3 : 0.5} floatIntensity={isMobile ? 0.3 : 1}>
+            <Planet scale={planetScale} />
           </Float>
-          <Environment resolution={256}>
+          <Environment resolution={isMobile ? 128 : 256}>
             <group rotation={[-Math.PI / 3, 4, 1]}>
               <Lightformer
                 form={"circle"}
@@ -68,9 +94,10 @@ results driven web/apps`;
           <OrbitControls 
             enableZoom={false} 
             enablePan={false} 
-            enableRotate={true}
+            enableRotate={!isMobile} // Disable rotation on mobile for better touch UX
             autoRotate={true}
-            autoRotateSpeed={0.5}
+            autoRotateSpeed={isMobile ? 0.3 : 0.5}
+            touches={{ ONE: isMobile ? 0 : 1 }} // Improve touch interaction
           />
         </Canvas>
       </figure>

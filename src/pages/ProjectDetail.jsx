@@ -113,17 +113,17 @@ const ProjectDetail = () => {
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
     <div className="min-h-screen bg-primary">
-      {/* Fixed Back Button */}
+      {/* Fixed Back Button - Repositioned for mobile */}
       <button
         onClick={() => navigate('/')}
-        className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2 bg-black/80 backdrop-blur-sm rounded-full border border-white/10 hover:bg-black transition-all duration-300 group"
+        className="fixed top-4 left-4 sm:top-6 sm:left-6 z-50 flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 bg-black/80 backdrop-blur-sm rounded-full border border-white/10 hover:bg-black transition-all duration-300 group min-h-[44px]"
       >
         <Icon icon="mdi:arrow-left" className="w-5 h-5 text-white group-hover:-translate-x-1 transition-transform" />
-        <span className="text-sm text-white">Back</span>
+        <span className="text-xs sm:text-sm text-white">Back</span>
       </button>
 
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative h-[80vh] md:h-[85vh] overflow-hidden">
+      {/* Hero Section - Optimized height for mobile */}
+      <section ref={heroRef} className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[85vh] overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
@@ -134,27 +134,27 @@ const ProjectDetail = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-primary" />
         </div>
 
-        {/* Hero Content */}
-        <div className="hero-content absolute inset-0 flex flex-col justify-end pb-16 md:pb-24 translate-y-12 md:translate-y-0">
-          <div className="container mx-auto px-6 md:px-10">
-            <p className="text-yellow-600 font-bold text-sm md:text-base mb-3 tracking-wider uppercase md:font-normal" style={{ textShadow: '0 0 20px rgba(207, 163, 85, 0.8), 0 0 40px rgba(207, 163, 85, 0.4)' }}>
+        {/* Hero Content - Responsive */}
+        <div className="hero-content absolute inset-0 flex flex-col justify-end pb-10 sm:pb-12 md:pb-16 lg:pb-24">
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="text-yellow-600 font-bold text-xs sm:text-sm md:text-base mb-2 sm:mb-3 tracking-wider uppercase" style={{ textShadow: '0 0 20px rgba(207, 163, 85, 0.8), 0 0 40px rgba(207, 163, 85, 0.4)' }}>
               {project.category}
             </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-amiamie text-black mb-6 max-w-4xl font-bold">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-amiamie text-black mb-4 sm:mb-5 md:mb-6 max-w-4xl font-bold leading-tight">
               {project.name}
               <span className="text-gold">.</span>
             </h1>
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8">
               {project.frameworks.map((framework) => (
                 <span
                   key={framework.id}
-                  className="px-4 py-1.5 text-sm rounded-full bg-black/5 backdrop-blur-sm border border-black/10 text-black font-light"
+                  className="px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm rounded-full bg-black/5 backdrop-blur-sm border border-black/10 text-black font-light"
                 >
                   {framework.name}
                 </span>
               ))}
             </div>
-            <div className="flex flex-wrap gap-6 md:gap-10 text-sm md:text-base text-black/60 font-light mb-8">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 sm:gap-6 md:gap-10 text-xs sm:text-sm md:text-base text-black/60 font-light mb-6 sm:mb-8">
               <div>
                 <span className="block text-xs uppercase tracking-wider font-bold  text-gold mb-1">Year</span>
                 {project.year}
@@ -202,9 +202,9 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {/* Main Content */}
-      <section ref={contentRef} className="py-20 md:py-32">
-        <div className="container mx-auto px-6 md:px-10">
+      {/* Main Content - Responsive padding */}
+      <section ref={contentRef} className="py-12 sm:py-16 md:py-20 lg:py-32">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           {/* Overview */}
           <div className="max-w-4xl mb-20 animate-item">
             <h2 className="text-3xl md:text-5xl font-bold font-amiamie text-black mb-6">
@@ -288,16 +288,17 @@ const ProjectDetail = () => {
             Results<span className="text-gold">.</span>
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16 animate-item">
+          {/* Results Grid - Better mobile layout */}
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 animate-item">
             {project.results.map((result, index) => (
               <div
                 key={index}
-                className="text-center p-6 bg-black/5 rounded-2xl border border-black/10 hover:border-gold/30 transition-all duration-300"
+                className="text-center p-5 sm:p-6 bg-black/5 rounded-xl sm:rounded-2xl border border-black/10 hover:border-gold/30 transition-all duration-300"
               >
-                <div className="text-3xl text-center md:text-4xl font-amiamie text-gold mb-2">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-amiamie text-gold mb-2">
                   {result.value}
                 </div>
-                <div className="text-sm text-black/60 uppercase tracking-wider mb-1 font-light">
+                <div className="text-xs sm:text-sm text-black/60 uppercase tracking-wider mb-1 font-light">
                   {result.metric}
                 </div>
                 <div className="text-xs text-black/40 font-light">{result.description}</div>
@@ -307,10 +308,10 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {/* Navigation Between Projects */}
-      <section className="py-16 border-t border-black/10">
-        <div className="container mx-auto px-6 md:px-10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+      {/* Navigation Between Projects - Responsive */}
+      <section className="py-12 sm:py-16 border-t border-black/10">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-6 sm:gap-8">
             <Link
               to={`/project/${prevProject.slug}`}
               className="group flex items-center gap-4 hover:text-gold transition-colors"

@@ -43,11 +43,9 @@ const Services = () => {
 
         return () => mm.revert();
     },[])
-    const text =  `I build high-performance full-stack apps
-    with smooth UX to drive growth
-    not headaches.`
+    const text =  ``
   return (
-   <section id="Services" className="bg-black min-h-screen rounded-t-4xl">
+   <section id="Services" className="bg-black min-h-screen rounded-t-4xl py-12 sm:py-16 md:py-20">
     <AnimatedHeader subtitle={"Behind the scene , Beyond the screen"}
         title={"Service"}
         text={text}
@@ -57,21 +55,22 @@ const Services = () => {
     {servicesData.map((service,idx)=>(
         <div ref={(el)=>(serviceRef.current[idx] = el)}
         key={idx}
-        className="sticky px-10 pt-6 pb-12 text-white bg-black border-t-2 border-white/30 " style={isDesktop?{top:`calc(10vh + ${idx*5}em)`,marginBottom:`${(servicesData.length - idx - 1)*5}rem`}:{top:0}}>
-            <div className="flex items-center justify-between gap-4 font-light ">
-                <div className="flex flex-col gap-6 ">
-                    <h2 className="text-4xl lg:text-5xl">{service.title}</h2>
-                    <p className="tracking-widest lg:text-2xl text-white/60 text-pretty">{service.description}</p>
-                    <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-white/80">
+        className="sticky px-4 sm:px-6 md:px-10 pt-5 sm:pt-6 pb-8 sm:pb-10 md:pb-12 text-white bg-black border-t-2 border-white/30" 
+        style={isDesktop?{top:`calc(10vh + ${idx*5}em)`,marginBottom:`${(servicesData.length - idx - 1)*5}rem`}:{top:0}}>
+            <div className="flex items-center justify-between gap-4 font-light">
+                <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
+                    <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl">{service.title}</h2>
+                    <p className="tracking-wide sm:tracking-wider text-base sm:text-lg md:text-xl lg:text-2xl text-white/60 text-pretty max-w-4xl">{service.description}</p>
+                    <div className="flex flex-col gap-2 text-xl sm:text-2xl md:gap-3 lg:text-3xl text-white/80">
                     {service.items.map((item,itemidx)=>(
                         <div key={`item-${idx}-${itemidx}`}>
                             <h3 className="flex flex-col"> 
-                                <span className="flex items-center gap-4">
-                                    <span className="text-lg text-white/30">0{itemidx+1}</span>
+                                <span className="flex items-center gap-3 sm:gap-4">
+                                    <span className="text-base sm:text-lg text-white/30 shrink-0">0{itemidx+1}</span>
                                     <span>{item.title}</span>
                                 </span>
                                 {item.description && (
-                                    <span className="ml-12 text-lg text-white/50 font-light mt-1">
+                                    <span className="ml-10 sm:ml-12 text-sm sm:text-base md:text-lg text-white/50 font-light mt-1">
                                         {item.description}
                                     </span>
                                 )}

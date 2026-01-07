@@ -1,9 +1,26 @@
 import { motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 
 const DURATION = 0.25;
 const STAGGER = 0.025;
 
 const FlipLink = ({ children, href, className }) => {
+  // Disable animation on mobile to prevent layout shifts
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  if (isMobile) {
+    // Simple link without animation on mobile
+    return (
+      <a
+        href={href}
+        className={`relative block whitespace-nowrap text-black ${className}`}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  // Full animation on desktop
   return (
     <motion.a
       initial="initial"
